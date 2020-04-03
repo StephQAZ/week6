@@ -25,7 +25,7 @@ int main()
 		cv::Point2f(340,270),
 		cv::Point2f(340,180)
 	};
-	//计算仿射矩阵
+	//透视变换行列计算
 	cv::Mat perspective_matrix = cv::getPerspectiveTransform(pts1, pts2);
 
 	cv::warpPerspective(srcMat, dstMat, perspective_matrix, srcMat.size());
