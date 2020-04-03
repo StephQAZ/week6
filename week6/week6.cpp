@@ -7,7 +7,22 @@ using namespace cv;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	cv::Mat srcMat = imread("C:\\Users\\27318\\Desktop\\大二下网络课程\\数字图像\\第六周\\lena.jpg",1);
+	cv::Mat dstMat;
+	if (srcMat.empty()) return -1;
+
+	//顺时针旋转90°
+	float angle = -90.0, scale = 1;
+	//旋转中心为图像中心
+	cv::Point2f center(srcMat.cols * 0.5, srcMat.rows * 0.5);
+	//获得变换矩阵
+	const cv::Mat affine_matrix = cv::getRotationMatrix2D(center, angle, scale);
+
+	cv::warpAffine(srcMat, dstMat, affine_matrix, srcMat.size());
+
+	cv::imshow("srcMat", srcMat);
+	cv::imshow("dstMat", dstMat);
+	waitKey(0);
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
