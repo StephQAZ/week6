@@ -7,7 +7,29 @@ using namespace cv;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	cv::Mat srcMat = imread("C:\\Users\\27318\\Desktop\\大二下网络课程\\数字图像\\第六周\\lena.jpg", 1);
+	cv::Mat dstMat;
+	if (srcMat.empty()) return -1;
+
+	//变换前的三点坐标
+	const cv::Point2f src_pt[] = {
+		cv::Point2f(200,200),
+		cv::Point2f(250,200),
+		cv::Point2f(200,100)
+	};
+	//变换后的三点坐标
+	const cv::Point2f dst_pt[] = {
+		cv::Point2f(350,150),
+		cv::Point2f(300,50),
+		cv::Point2f(200,100)
+	};
+	//计算仿射矩阵
+	const cv::Mat affine_matrix = cv::getAffineTransform(src_pt, dst_pt);
+
+	cv::warpAffine(srcMat, dstMat, affine_matrix, srcMat.size());
+	cv::imshow("srcMat", srcMat);
+	cv::imshow("dstMat", dstMat);
+	waitKey(0);
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
